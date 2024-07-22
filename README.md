@@ -10,13 +10,9 @@ Our implementation relies on one decoder to choose in which register we prefer t
 It is a 16-bit arithmetic and logical unit used to perform all the required operations mentioned. We have about 16 different operations which can be chosen through the ALU MUX (ALU signal). In our ALU, there are two inputs (A), (B), and a MUX with 4 bits selector (ALU signal) in order to choose which operation is required to be performed. 
 We used a comparator to check the zero flag. According to the shifting functions, input B is used as the shift amount so, we used a splitter to control the number of bits which will be considered as the shift amount. We also checked the over flow in addition and subtraction operations by Xoring the most significant bit of the output with the carry out. If the most significant bit of the output and the carry out are the same so there is no overflow, if not, so the overflow signal is activated. 
 Furthermore, we used two other comparators; the first one is an unsigned comparator to check the set less than unsigned (SLTU). The second one is to check SLT and all branches. The result of the branches is one bit so we used an extended to extend its value. 
-## The operations are: 
-
 # ALU Control:
 The ALU Control unit receives two input signals which are the ALU-OP from the main control unit and 2-bit function (9&10) from the output of the instruction memory. These two input signals identify which operation will be performed and determine whether the instruction is R-type or I-type. Since the OP code of some R-type instruction is the same so the 2 bit function is necessary to clarify which function is desired. While in I-type, all the operations have different OP code. Thus; we used two MUXs to know which operation will be activated and both MUXs have an enable signal to activate one and deactivate the other. 
 The role of the Main MUX in the figure is to differentiate which MUX will be used. If the enable 1 signal is 0 and enable 2 signal is 1 then the Main Mux selects the I-type multiplexer. Finally the result is represented in 4 bits on the ALU signal which will be used in the ALU to identify specifically which operation will be performed.
-## The following shows the truth table of the ALU signal:
-
 
 # Control Unit:
 The control unit is meant to be the brain of the whole processor as it controls every single sub-device in the processor. Each device in the processor has signals these signals are defined in the control unit. This control unit contains only one input which is the OP-Code. Actually, we used a decoder with the OP-code signal (5 bits) which identifies each operation according to its op-code. The first to outputs are ored together and passed to the R-type because the R-format is identified by OP Code 0 or 1. Op-code 2 is R-format also but a special case since it is a jump instruction.
@@ -57,3 +53,15 @@ Jump selc (01) = J + JAL
 Jump selc (10) = JR * FUNC
 
   Each design in the in the processor is illustrated using these signals in the control unit. So, we used (AND) and (OR) gates to implement these signals. We also tend to use some encoders to get the signals needed to be passed to other devices to resume its processing. All of these signals own a truth table which simply shows how and when it works. 
+
+# Program Counter (Pc):
+   The program counter is a register in the computer processor which contains the location address of the instruction being executed. After the current instruction is fetched, the program counter is incremented by 1 since the program counter contains a word address. When the PC is incremented by 1, it points to the next instruction in the memory. 
+
+# Data path:
+  The data path is the lines (wires) that connect the components of the processor with each other and with the different signals. It contains the previous mentioned components. It also contains an instruction memory (ROM), data memory (RAM), and a program counter register. In addition, it has decoders, multiplexers, extenders, clock, and adders.
+## The instruction MEM(ROM):
+it is a 16-bit data width with 16-bit address width. The code or the instructions is loaded in the instruction memory. After that, the instruction is then read and passed to each device in the processor and the program is being executed.
+## The data MEM:
+its data and address is the same as the ROM 16-bit width. It is used to read and write inside it based on the instruction. After the program is executed, if we store data in the memory it will appear in the data memory (RAM) block after the program is terminated.
+## The clock:
+the program starts executing at each positive rising edge of the clock.
