@@ -1,3 +1,6 @@
+# By:
+### Abanob Evram Shahata
+### ECE Student @ Faculty of Engineering Fayoum University
 # Introduction:
 In this research we concerned to implement a 16-bit length MIPS single cycle processor which contains seven 16-bit general purpose registers (R1-R7). Also, R0 is hardwired to zero and cannot be written. There are only three instruction format which are R-type, I-type, and J-type. Each instruction is only 16 bits. 
 A single cycle processor is a processor that carries one instruction in a single cycle clock. An instruction is fetched from the memory, then decoded, and executed to store the result in a single clock cycle. This is a simple model of MIPS processor in the terms of the hardware requirements. It has a poor data throughput (limited number of instructions).
